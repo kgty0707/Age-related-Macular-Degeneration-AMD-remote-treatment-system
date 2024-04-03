@@ -3,7 +3,7 @@ from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
 
-class Test(Base):
+class ResultTable(Base):
     __tablename__ = 'result_table'
 
     result_idx = Column(Integer, primary_key=True)
