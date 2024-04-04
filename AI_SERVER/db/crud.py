@@ -18,8 +18,8 @@ def insert_data(db: Session, result_create: schemas.ResultCreate):
     db.refresh(db_item)
     return db_item
 
-def get_all_results(db: Session):
+def insert_all_results(db: Session):
     return db.query(models.ResultTable).all()
 
-def get_latest_result(db: Session):
+def insert_latest_results(db: Session):
     return db.query(models.ResultTable).order_by(desc(models.ResultTable.created_dt)).first()

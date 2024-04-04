@@ -45,7 +45,7 @@ def read_results(db: Session = Depends(get_db)):
     """
     db에서 모든 data 조회 후 unity에 반환
     """
-    results = crud.get_all_results(db=db)
+    results = crud.insert_all_results(db=db)
     return results
 
 @app.get("/results/latest", response_model=schemas.ResultCreate)
@@ -53,5 +53,5 @@ def read_latest_result(db: Session = Depends(get_db)):
     """
     db에서 created_dt를 기준으로 최근 1개의 데이터 반환
     """
-    latest_result = crud.get_latest_result(db=db)
+    latest_result = crud.insert_latest_results(db=db)
     return latest_result
