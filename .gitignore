@@ -70,6 +70,8 @@ sysinfo.txt
 *.png
 *.jpg
 *.csv
+*.txt
+
 *.zip
 
 # Model
