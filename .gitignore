@@ -52,6 +52,11 @@ ExportedObj/
 /AI/__pycache__/
 *.py[cod]
 
+# Traind Model files
+*.xml
+*.pth
+*.pt
+
 # Unity3D generated meta files
 *.pidb.meta
 *.pdb.meta

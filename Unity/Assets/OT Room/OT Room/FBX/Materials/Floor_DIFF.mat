@@ -270,7 +270,7 @@ Material:
     - _ReceivesSSR: 1
     - _ReceivesSSRTransparent: 0
     - _RefractionModel: 0
-    - _Smoothness: 1
+    - _Smoothness: 0.91
     - _SmoothnessRemapMax: 0.9097222
     - _SmoothnessRemapMin: 0.0625
     - _SmoothnessTextureChannel: 0
@@ -314,9 +314,9 @@ Material:
     - _ZTestTransparent: 4
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 0.3868814, g: 0.4617746, b: 0.509434, a: 1}
+    - _BaseColor: {r: 0.3882353, g: 0.4627451, b: 0.50980395, a: 1}
     - _BaseColorMap_MipInfo: {r: 0, g: 0, b: 0, a: 0}
-    - _Color: {r: 0.38688138, g: 0.4617746, b: 0.509434, a: 1}
+    - _Color: {r: 0.38823527, g: 0.462745, b: 0.5098039, a: 1}
     - _DiffusionProfileAsset: {r: 0, g: 0, b: 0, a: 0}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
@@ -332,7 +332,7 @@ Material:
     - _UVMappingMask: {r: 1, g: 0, b: 0, a: 0}
     - _UVMappingMaskEmissive: {r: 1, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
---- !u!114 &1425486576616281051
+--- !u!114 &1520641476477177067
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
