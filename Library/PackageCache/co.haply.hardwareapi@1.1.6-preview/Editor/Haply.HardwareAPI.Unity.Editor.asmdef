@@ -1,0 +1,23 @@
+{
+    "name": "Haply.HardwareAPI.Unity.Editor",
+    "rootNamespace": "Haply.HardwareAPI.Unity.Editor",
+    "references": [
+        "GUID:727558ea8ffabfd45a9fd449e80c7cdf"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "Haply.HardwareAPI.dll",
+        "Haply.HardwareAPI.Runtime.dll",
+        "Haply.HardwareAPI.Transport.dll",
+        "Haply.IO.dll"
+    ],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

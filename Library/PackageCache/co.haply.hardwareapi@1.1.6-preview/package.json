@@ -1,0 +1,46 @@
+{
+  "name": "co.haply.hardwareapi",
+  "version": "1.1.6-preview",
+  "displayName": "Haply HardwareAPI for Unity",
+  "description": "Exposes Unity behaviour scripts for interacting with Inverse3 hardware and peripherals via Haply's C# HardwareAPI.",
+  "unity": "2021.3",
+  "author": {
+    "name": "Haply",
+    "email": "info@haply.co",
+    "url": "https://haply.co/"
+  },
+  "documentationUrl": "https://develop.haply.co/docs/unity",
+  "files": [
+    "package.json",
+    "*.md",
+    "/Runtime",
+    "/Editor",
+    "/Documentation~",
+    "/Samples~"
+  ],
+  "dependencies": {
+	"com.unity.nuget.newtonsoft-json": "3.0.2"
+  },
+  "samples": [
+    {
+      "displayName": "Force and Position",
+      "description": "A simple scene showing how to control the cursor position with the device and how to apply a force relative to its position.",
+      "path": "Samples~/Force and Position"
+    },
+    {
+      "displayName": "Basic Force Feedback and Workspace Control",
+      "description": "This example shows how to interact with static scene game object and how to move and scale the workspace to navigate with the Handle and change the cursor precision.",
+      "path": "Samples~/BasicForceFeedbackAndWorkspaceControl"
+    },
+    {
+      "displayName": "Dynamic Object Force",
+      "description": "This example demonstrates how to create moving haptic objects though built-in thread-safe functions allowing data exchange between threads.",
+      "path": "Samples~/Dynamic Object Force"
+    },
+    {
+      "displayName": "Haptics and Physics engine [EXPERIMENTAL]",
+      "description": "This example shows how to build a haptic scene and incorporate the built-in physics engine into a haptic simulation using kinematic and non-kinematic objects.\n\nPlease note this demo is an experiment with the Unity Physics engine limitations. For more advanced features and precision, we recommend third-party physics engine like SOFA, IMSTK, CHAI3D...",
+      "path": "Samples~/Haptic and Physics"
+    }
+  ]
+}

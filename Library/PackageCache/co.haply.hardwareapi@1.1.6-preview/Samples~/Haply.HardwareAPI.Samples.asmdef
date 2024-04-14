@@ -1,0 +1,16 @@
+{
+    "name": "Haply.HardwareAPI.Samples",
+    "rootNamespace": "",
+    "references": [
+        "GUID:727558ea8ffabfd45a9fd449e80c7cdf"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
