@@ -7,6 +7,7 @@ public class CollisionDetector : MonoBehaviour
     public Vector3 CollisionPoint { get; private set; } // 충돌 지점 저장
     public float HeightFactor { get; private set; } // 외부에서 접근 가능한 heightFactor
     public float penetrationThreshold = -0.02f; // y축 방향 임계치
+    public string CollidingObjectTag; // 현재 충돌 중인 객체의 태그 저장
 
 
     private void OnTriggerEnter(Collider other)
@@ -14,8 +15,11 @@ public class CollisionDetector : MonoBehaviour
         Debug.Log("Collision started with " + other.name);
         isColliding = true;
         CollisionPoint = other.ClosestPointOnBounds(transform.position); // 충돌 지점 업데이트
+        CollidingObjectTag = other.tag;
         UpdateHeightFactor(CollisionPoint.y); // 충돌 지점을 기준으로 HeightFactor 계산
     }
+
+
 
     private void OnTriggerExit(Collider other)
     {

@@ -23,10 +23,18 @@ public class ColllisionForce : MonoBehaviour
     }
     private void Update()
     {
-        
-        float targetStiffness = collisionDetector.isColliding ? Mathf.Lerp(baseStiffness, maxStiffness, 1 - collisionDetector.HeightFactor) : reducedStiffness;
-        // Mathf.Lerp를 사용하여 현재 강성을 부드럽게 목표 강성으로 변화시킴
-        currentStiffness = Mathf.Lerp(currentStiffness, targetStiffness, transitionSpeed * Time.deltaTime);
+        switch (collisionDetector.CollidingObjectTag)
+        {
+            case "target":
+                currentStiffness = -1;
+                break;
+
+            default:
+                float targetStiffness = collisionDetector.isColliding ? Mathf.Lerp(baseStiffness, maxStiffness, 1 - collisionDetector.HeightFactor) : reducedStiffness;
+                currentStiffness = Mathf.Lerp(currentStiffness, targetStiffness, transitionSpeed * Time.deltaTime);
+                break;
+        }
+
         UpdateForceCalculation();
     }
 
