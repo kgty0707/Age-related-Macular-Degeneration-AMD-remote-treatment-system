@@ -80,6 +80,8 @@ sysinfo.txt
 *.zip
 
 # Model
+/AI_SERVER/AI/LLM/data/*
+/AI_SERVER/AI/LLM/result/*
 *.pt
 
 # Crashlytics generated file
