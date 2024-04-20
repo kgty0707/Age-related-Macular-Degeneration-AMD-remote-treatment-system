@@ -82,6 +82,7 @@ sysinfo.txt
 # Model
 /AI_SERVER/AI/LLM/data/*
 /AI_SERVER/AI/LLM/result/*
+/AI_SERVER/AI/LLM/translate-GPT.ipynb
 *.pt
 
 # Crashlytics generated file
