@@ -8,11 +8,15 @@ public class ColllisionForce : MonoBehaviour
     private CollisionDetector collisionDetector;
     private HapticThread hapticThread;
 
+
     private float baseStiffness = 20f; // 기본 강성
     private float maxStiffness = 100f; // 최대 강성
     private float reducedStiffness = 0f; // 충돌하지 않을 때 감소된 강성
     private float currentStiffness; // 현재 적용되는 강성
     private float transitionSpeed = 5f; // 강성 값이 변화하는 속도
+    private Vector3 lastPosition; // 이전 프레임에서의 위치
+
+
 
     private void Awake()
     {
@@ -21,6 +25,7 @@ public class ColllisionForce : MonoBehaviour
         currentStiffness = reducedStiffness;
 
     }
+
     private void Update()
     {
         switch (collisionDetector.CollidingObjectTag)
@@ -30,22 +35,26 @@ public class ColllisionForce : MonoBehaviour
                 break;
 
             default:
-                float targetStiffness = collisionDetector.isColliding ? Mathf.Lerp(baseStiffness, maxStiffness, 1 - collisionDetector.HeightFactor) : reducedStiffness;
+                Vector3 positionChange = transform.position - lastPosition;
+                Vector3 movementDirection = new Vector3(0, positionChange.y, 0); // 물체의 움직임 방향
+                Debug.Log(movementDirection);
+                float targetStiffness = Mathf.Lerp(baseStiffness, maxStiffness, 1 - collisionDetector.HeightFactor);
                 currentStiffness = Mathf.Lerp(currentStiffness, targetStiffness, transitionSpeed * Time.deltaTime);
+                UpdateForceCalculation(movementDirection/8); // 반대 방향으로 힘 적용
                 break;
         }
 
-        UpdateForceCalculation();
     }
 
-    private void UpdateForceCalculation()
+    private void UpdateForceCalculation(Vector3 forceDirection)
     {
         if (hapticThread.isInitialized && collisionDetector.isColliding)
         {
+
             hapticThread.Run((in Vector3 position) =>
             {
-                Vector3 targetPosition = Vector3.zero; // 원하는 위치 (예시)
-                return (targetPosition - position) * currentStiffness;
+                return forceDirection * currentStiffness;
+
             });
         }
     }
