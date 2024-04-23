@@ -6,7 +6,7 @@ from PIL import Image
 user_name, ori_image_path, mask_image_path, sclera_x, sclera_y, cornea_x, cornea_y, created_dt
 '''
 
-model = YOLO('./AI/best.pt')
+model = YOLO('./AI/model/best.pt')
 
 def get_segmentation_result(file_fath, user_name):
     '''

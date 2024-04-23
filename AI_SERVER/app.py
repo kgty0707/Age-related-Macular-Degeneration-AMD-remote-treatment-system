@@ -66,7 +66,6 @@ class ImportImageResponse(BaseModel):
     height: float
     s_width: float
 
-s_width, s_height, c_width, c_height = 0
 file_path = './patient_ori_image/hyemin_eye.jpg'
 
 @app.get("/import_image", response_model=ImportImageResponse)
@@ -80,8 +79,8 @@ def import_image(db: Session = Depends(get_db)):
         user_name=user_name,
         ori_image_path=file_path,  # Original image path
         mask_image_path=result_path,         # Mask image path
-        sclera_x=str(s_width), sclera_y=str(s_height),     # Sclera center coordinates
-        cornea_x=str(c_width), cornea_y=str(c_width),     # Cornea center coordinates
+        sclera_x=width, sclera_y=height,     # Sclera center coordinates
+        cornea_x=0, cornea_y=0,     # Cornea center coordinates
         created_dt=created_dt       # Timestamp
     )
 

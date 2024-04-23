@@ -76,7 +76,7 @@ sysinfo.txt
 *.jpg
 *.csv
 *.txt
-
+*.Fbx
 *.zip
 
 # Model
