@@ -16,10 +16,11 @@
 ### Assets List
 -- Environment --
 
+![image](https://github.com/kgty0707/Age-related-Macular-Degeneration-AMD-remote-treatment-system/assets/90316001/e0378585-26a8-46a1-a778-56eb8ae767e4)
+
 - Hospital | Blue Dot Studios
 - Surgical Instruments
 
-  
 ## Contributing&Contact
 
 - hyemin
