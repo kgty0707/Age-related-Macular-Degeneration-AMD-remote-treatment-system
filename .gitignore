@@ -46,6 +46,16 @@ ExportedObj/
 *.mdb
 *.opendb
 *.VC.db
+*.env
+
+# Byte-compiled / optimized / DLL files
+/AI/__pycache__/
+*.py[cod]
+
+# Traind Model files
+*.xml
+*.pth
+*.pt
 
 # Unity3D generated meta files
 *.pidb.meta
@@ -60,6 +70,20 @@ sysinfo.txt
 *.aab
 *.unitypackage
 *.app
+
+# Dataset
+*.png
+*.jpg
+*.csv
+*.txt
+*.Fbx
+*.zip
+
+# Model
+/AI_SERVER/AI/LLM/data/*
+/AI_SERVER/AI/LLM/result/*
+/AI_SERVER/AI/LLM/translate-GPT.ipynb
+*.pt
 
 # Crashlytics generated file
 crashlytics-build.properties

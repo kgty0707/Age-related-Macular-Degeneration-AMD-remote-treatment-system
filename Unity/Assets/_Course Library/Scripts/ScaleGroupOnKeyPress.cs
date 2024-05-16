@@ -47,17 +47,17 @@ public class ScaleGroupOnKeyPress : MonoBehaviour
     {
         foreach (Transform child in transform)
         {
-            // Y축 크기는 현재 값으로 유지하면서 X축과 Z축의 크기만 변경
+            // Y축 크기는 현재 값으로 유지하면서 X축과 y축의 크기만 변경
             Vector3 newScale = new Vector3(
                 child.localScale.x + increment,
-                child.localScale.y, // Y축 크기 고정
-                child.localScale.z + increment);
+                child.localScale.y + increment,
+                child.localScale.z);
 
-            // 최대 및 최소 크기 제한 적용 (Y축은 변경 없음)
+            // 최대 및 최소 크기 제한 적용 (z축은 변경 없음)
             newScale = new Vector3(
                 Mathf.Clamp(newScale.x, minScale, maxScale),
-                child.localScale.y, // Y축 값은 Clamp 적용 없이 그대로
-                Mathf.Clamp(newScale.z, minScale, maxScale));
+                Mathf.Clamp(newScale.y, minScale, maxScale),
+                child.localScale.z);
 
             child.localScale = newScale;
         }
