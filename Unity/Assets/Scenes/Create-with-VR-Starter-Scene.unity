@@ -1907,7 +1907,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &364578161
 Transform:
   m_ObjectHideFlags: 0
@@ -5095,7 +5095,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &712900737
 Transform:
   m_ObjectHideFlags: 0
@@ -10170,15 +10170,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1313711679}
-  m_LocalRotation: {x: 0.004972857, y: 0.92001, z: -0.39173692, w: 0.009957543}
-  m_LocalPosition: {x: -0.0000002682209, y: 0.02, z: 2.69}
+  m_LocalRotation: {x: 0.004102921, y: 0.8831315, z: -0.4689936, w: 0.010346403}
+  m_LocalPosition: {x: -0.0000002682209, y: 0.02, z: 2.19}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 650672842}
   m_Father: {fileID: 0}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 46.129, y: 178.807, z: 0.112}
+  m_LocalEulerAnglesHint: {x: 55.94, y: 178.524, z: -0.251}
 --- !u!114 &1313711682
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14703,7 +14703,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2124398259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15593,9 +15593,10 @@ GameObject:
   - component: {fileID: 8915525591531442057}
   - component: {fileID: 8407240087089761445}
   - component: {fileID: 8885488494669881795}
+  - component: {fileID: 8915525591531442058}
   m_Layer: 0
   m_Name: musculo cili
-  m_TagString: eye
+  m_TagString: New tag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15675,9 +15676,10 @@ GameObject:
   - component: {fileID: 2574903686482843348}
   - component: {fileID: 8771458767168106516}
   - component: {fileID: 3171884013663720605}
+  - component: {fileID: 8771458767168106517}
   m_Layer: 0
   m_Name: esclerotida
-  m_TagString: eye
+  m_TagString: New tag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15925,7 +15927,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7795153571895845722}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.99050045, y: 9.574, z: -6.44}
+  m_LocalPosition: {x: -0.99050045, y: 9.5, z: -6.7}
   m_LocalScale: {x: 0.6, y: 0.6, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -16207,6 +16209,20 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5685369532352585779}
   m_Mesh: {fileID: 3240378882619659150, guid: 5692af13821d6024eb334e991870523e, type: 3}
+--- !u!64 &8771458767168106517
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5685369532352585779}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 3240378882619659150, guid: 5692af13821d6024eb334e991870523e, type: 3}
 --- !u!23 &8779916238325364249
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -16329,6 +16345,20 @@ Transform:
   m_Father: {fileID: 7450680511330548192}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!64 &8915525591531442058
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5223633786790248496}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4639906542290367762, guid: 5692af13821d6024eb334e991870523e, type: 3}
 --- !u!1 &8996252189048676441
 GameObject:
   m_ObjectHideFlags: 0

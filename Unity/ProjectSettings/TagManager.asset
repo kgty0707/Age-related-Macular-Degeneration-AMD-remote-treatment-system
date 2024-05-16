@@ -6,6 +6,7 @@ TagManager:
   tags:
   - sphere
   - eye
+  - New tag
   layers:
   - Default
   - TransparentFX
