@@ -1,7 +1,9 @@
 from datetime import datetime
 import os
+from fastapi.templating import Jinja2Templates
+from fastapi.staticfiles import StaticFiles
 
-from fastapi import FastAPI, Depends, Path, HTTPException
+from fastapi import FastAPI, Depends, Request
 from typing import List, Optional
 from sqlalchemy.orm import Session
 from pydantic import BaseModel
@@ -11,6 +13,8 @@ from db import crud, schemas
 from AI.image_seg import get_segmentation_result
 
 app = FastAPI()
+app.mount("/static", StaticFiles(directory="static"), name="static")
+templates = Jinja2Templates(directory="templates")
 
 engine = engineconn()
 
@@ -20,6 +24,11 @@ def get_db():
         yield db
     finally:
         db.close()
+
+@app.get("/main")
+def hello(request: Request, db: Session = Depends(get_db)):
+    example = db.query(ResultTable).all()
+    return templates.TemplateResponse("main.html", {"request": request, "example": example})
 
 @app.get("/")
 def first_get(db: Session = Depends(get_db)):
@@ -64,7 +73,6 @@ class ImportImageResponse(BaseModel):
     message: str
     width: float
     height: float
-    s_width: float
 
 file_path = './patient_ori_image/hyemin_eye.jpg'
 
@@ -79,9 +87,9 @@ def import_image(db: Session = Depends(get_db)):
         user_name=user_name,
         ori_image_path=file_path,  # Original image path
         mask_image_path=result_path,         # Mask image path
-        sclera_x=width, sclera_y=height,     # Sclera center coordinates
-        cornea_x=0, cornea_y=0,     # Cornea center coordinates
-        created_dt=created_dt       # Timestamp
+        sclera_x=str(width), sclera_y=str(height),  # Sclera center coordinates as strings
+        cornea_x="0", cornea_y="0",  # Cornea center coordinates as strings
+        created_dt=created_dt  # Timestamp
     )
 
     # Assuming crud.insert_data properly saves the data to the database
