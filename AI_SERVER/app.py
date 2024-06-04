@@ -14,6 +14,9 @@ from AI.image_seg import get_segmentation_result
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
+app.mount("/patient_res_image", StaticFiles(directory="patient_res_image"), name="patient_res_image")
+app.mount("/patient_ori_image", StaticFiles(directory="patient_ori_image"), name="patient_ori_image")
+
 templates = Jinja2Templates(directory="templates")
 
 engine = engineconn()
@@ -74,7 +77,7 @@ class ImportImageResponse(BaseModel):
     width: float
     height: float
 
-file_path = './patient_ori_image/hyemin_eye.jpg'
+file_path = './patient_ori_image/minju_eye.jpg'
 
 @app.get("/import_image", response_model=ImportImageResponse)
 def import_image(db: Session = Depends(get_db)):
