@@ -4,9 +4,10 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - Box
+  - Trail
   - sphere
   - eye
-  - New tag
   layers:
   - Default
   - TransparentFX

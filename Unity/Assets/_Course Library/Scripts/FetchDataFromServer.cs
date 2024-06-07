@@ -5,7 +5,7 @@ using UnityEngine.Networking;
 public class FetchDataFromServer : MonoBehaviour
 {
     // FastAPI 서버의 엔드포인트 URL
-    string endpointUrl = "http://localhost:8000/results/latest";
+    string endpointUrl = "http://166.104.232.81:9876/results/latest";
 
     // 시작 시 서버로부터 데이터 요청
     void Start()
