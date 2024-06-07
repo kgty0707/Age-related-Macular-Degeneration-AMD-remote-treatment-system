@@ -7,11 +7,14 @@ public class ScaleGroupOnButtonPress : MonoBehaviour
     public float scaleIncrement = 0.1f; // 크기를 증가시킬 값
     public float maxScale = 5f; // 최대 크기 제한
     public float minScale = 0.1f; // 최소 크기 제한
+    public float zScaleIncrement = 0.03f; // z축 크기를 변경할 값
+    public float zPositionIncrement = 0.01f; // z축 위치를 변경할 값
     public Button zoomInButton; // Zoom In 버튼
     public Button zoomOutButton; // Zoom Out 버튼
     public List<Transform> additionalObjectsToScale; // 함께 크기를 조절할 오브젝트들
     public List<Transform> objectsToMoveY; // y축으로 이동할 오브젝트들
-    private float positionIncrement = 0.02f; // 위치를 변경할 값
+    public List<Transform> objectsToScaleAndMoveZ; // z축의 크기와 위치를 변경할 오브젝트들
+    private float positionIncrement = 0.04f; // 위치를 변경할 값
 
     private SphereCollider sphereCollider; // SphereCollider 변수 추가
 
@@ -29,9 +32,13 @@ public class ScaleGroupOnButtonPress : MonoBehaviour
     void Zoom(bool isZoomIn)
     {
         float increment = isZoomIn ? scaleIncrement : -scaleIncrement;
+        float zIncrement = isZoomIn ? zScaleIncrement : -zScaleIncrement;
+        float zPosIncrement = isZoomIn ? zPositionIncrement : -zPositionIncrement;
         if (CanChangeSize(isZoomIn))
         {
             ChangeScale(increment, isZoomIn);
+            MoveObjectsY(objectsToMoveY, increment, isZoomIn);
+            ScaleAndMoveObjectsZ(objectsToScaleAndMoveZ, zIncrement, zPosIncrement, isZoomIn);
         }
     }
 
@@ -104,14 +111,35 @@ public class ScaleGroupOnButtonPress : MonoBehaviour
             newPosition.x += positionChangeX;
             obj.localPosition = newPosition;
         }
+    }
 
-        // y축으로 이동할 오브젝트들의 y 위치 변경
+    // y축으로 이동할 오브젝트들의 y 위치 변경 메서드
+    void MoveObjectsY(List<Transform> objects, float increment, bool isZoomIn)
+    {
         float positionChangeY = isZoomIn ? positionIncrement : -positionIncrement;
 
-        foreach (Transform obj in objectsToMoveY)
+        foreach (Transform obj in objects)
         {
             Vector3 newPosition = obj.localPosition;
             newPosition.y += positionChangeY;
+            obj.localPosition = newPosition;
+        }
+    }
+
+    // z축의 크기를 변경하고 위치를 변경할 오브젝트들의 메서드
+    void ScaleAndMoveObjectsZ(List<Transform> objects, float zIncrement, float zPosIncrement, bool isZoomIn)
+    {
+        for (int i = 0; i < objects.Count; i++)
+        {
+            Transform obj = objects[i];
+            Vector3 newScale = obj.localScale;
+            newScale.z += zIncrement;
+            newScale.z = Mathf.Clamp(newScale.z, minScale, maxScale);
+            obj.localScale = newScale;
+
+            Vector3 newPosition = obj.localPosition;
+            // 짝수 인덱스는 +z축, 홀수 인덱스는 -z축으로 이동
+            newPosition.z += (i % 2 == 0) ? zPosIncrement : -zPosIncrement;
             obj.localPosition = newPosition;
         }
     }

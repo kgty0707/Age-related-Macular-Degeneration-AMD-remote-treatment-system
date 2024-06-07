@@ -7,7 +7,7 @@ using System.Collections.Generic;
 public class ObjectScaler : MonoBehaviour
 {
     // FastAPI 서버의 엔드포인트 URL
-    string endpointUrl = "http://localhost:8000/import_image";
+    string endpointUrl = "http://166.104.232.81:9876/import_image";
 
     // UI 버튼
     public Button requestButton;
