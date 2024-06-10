@@ -1,5 +1,14 @@
 {
   "dependencies": {
+    "co.haply.hardwareapi": {
+      "version": "1.1.6-preview",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.nuget.newtonsoft-json": "3.0.2"
+      },
+      "url": "https://unitypackages.haply.co"
+    },
     "com.unity.burst": {
       "version": "1.6.5",
       "depth": 1,
@@ -68,7 +77,7 @@
     },
     "com.unity.nuget.newtonsoft-json": {
       "version": "3.0.2",
-      "depth": 2,
+      "depth": 1,
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.com"
