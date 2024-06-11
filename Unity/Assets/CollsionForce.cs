@@ -11,9 +11,7 @@ public class CollsionForce : MonoBehaviour
 
     private Vector3 lastPosition; // 이전 프레임에서의 위치
     private float forceMultiplier = 3f; // 힘 증폭 계수 (필요에 따라 조절 가능)
-    private float punctureThreshold = 0.5f; // 천공 임계값 (변위의 크기)
     private float safetyForceThreshold = 20f; // 안전을 위한 힘의 최대값
-    private float boxDamping = 1f; // Damping for box collision
     private Vector3 lastDampingForce = Vector3.zero; // 이전 댐핑 힘
     private Vector3 lastForce = Vector3.zero; // 이전 프레임에서의 힘
 
@@ -53,7 +51,7 @@ public class CollsionForce : MonoBehaviour
     
         else if (collisionDetector.CollidingObjectTag == "eye" && collisionDetector.isColliding)
         {
-           Vector3 dampingForce = -velocity * boxDamping * 7f; // 모든 축에 대해 댐핑 힘 계산
+           Vector3 dampingForce = -velocity * 7f; // 모든 축에 대해 댐핑 힘 계산
             //float yDampingForce = -velocity.y * boxDamping * 5f; // Y축 방향 댐핑 힘 계산
             //Vector3 dampingForce = new Vector3(0, yDampingForce, 0);
 

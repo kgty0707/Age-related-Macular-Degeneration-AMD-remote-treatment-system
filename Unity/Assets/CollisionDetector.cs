@@ -22,11 +22,15 @@ public class CollisionDetector : MonoBehaviour
 
     private bool sphereCollided = false; // Flag to check if sphere has collided
     private bool eyeCollided = false; // Flag to check if eye has collided
+    public GameObject bloodSprayFX; // Reference to the BloodSprayFX GameObject
+    public GameObject bloodSprayFX2; // Reference to the BloodSprayFX GameObject
 
     private void Start()
     {
         audioSource = GetComponent<AudioSource>(); // Get the AudioSource component
         UpdateCountText(); // Update the count text initially
+        bloodSprayFX.SetActive(false); // Ensure BloodSprayFX is inactive at the start
+        bloodSprayFX2.SetActive(false); // Ensure BloodSprayFX is inactive at the start
     }
 
     private void OnTriggerEnter(Collider other)
@@ -72,9 +76,11 @@ public class CollisionDetector : MonoBehaviour
                         audioSource.Play();
                     }
                 }
-                if (count >= 15)
+                if (count >= 20)
                 {
                     ChangeEyeObjectsColorToRed();
+                    bloodSprayFX.SetActive(true); // Activate BloodSprayFX on collision with eye
+                    bloodSprayFX2.SetActive(true); // Activate BloodSprayFX on collision with eye
                 }
                 eyeCollided = true;
             }
