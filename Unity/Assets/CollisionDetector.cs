@@ -1,5 +1,6 @@
 using Haply.HardwareAPI.Unity;
 using UnityEngine;
+using TMPro; // TextMeshPro 네임스페이스 추가
 
 public class CollisionDetector : MonoBehaviour
 {
@@ -13,6 +14,20 @@ public class CollisionDetector : MonoBehaviour
     private Color originalColor; // Store the original color of the object
     private Renderer collidingObjectRenderer; // Renderer component of the colliding object
     public int count = 0; // Counter for collisions with objects other than "sphere"
+
+    public AudioClip sphereSound; // Sphere sound clip
+    public AudioClip eyeSound; // Eye sound clip
+    private AudioSource audioSource; // Audio source component
+    public TextMeshProUGUI countText; // UI Text to display the count
+
+    private bool sphereCollided = false; // Flag to check if sphere has collided
+    private bool eyeCollided = false; // Flag to check if eye has collided
+
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>(); // Get the AudioSource component
+        UpdateCountText(); // Update the count text initially
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -30,13 +45,40 @@ public class CollisionDetector : MonoBehaviour
 
             if (other.CompareTag("sphere"))
             {
-                collidingObjectRenderer.material.color = Color.green; // Change color to green if tag is "sphere"
+                if (!sphereCollided)
+                {
+                    if (collidingObjectRenderer.material.color != Color.green)
+                    {
+                        collidingObjectRenderer.material.color = Color.green;
+                    }
+                    if (!audioSource.isPlaying || audioSource.clip != sphereSound)
+                    {
+                        audioSource.clip = sphereSound;
+                        audioSource.Play();
+                    }
+                    sphereCollided = true; // Set flag
+                }
             }
+
             else if (other.CompareTag("eye"))
             {
-                count++;
+                if (!eyeCollided)
+                {
+                    count++;
+                    UpdateCountText();
+                    if (!audioSource.isPlaying || audioSource.clip != eyeSound)
+                    {
+                        audioSource.clip = eyeSound;
+                        audioSource.Play();
+                    }
+                }
+                if (count >= 15)
+                {
+                    ChangeEyeObjectsColorToRed();
+                }
+                eyeCollided = true;
             }
-            else
+                else
             {
             }
         }
@@ -51,10 +93,15 @@ public class CollisionDetector : MonoBehaviour
             CollidingObject = null; // Clear the colliding object on exit
             CollidingObjectTag = null; // Clear the tag on exit
 
-            if (collidingObjectRenderer != null)
+            if (other.CompareTag("sphere"))
             {
+                sphereCollided = false;
                 collidingObjectRenderer.material.color = Color.white; // Revert to the original material on trigger exit
                 collidingObjectRenderer = null; // Clear the renderer reference
+            }
+            else if (other.CompareTag("eye"))
+            {
+                eyeCollided = false;
             }
         }
         UpdateHeightFactor(transform.position.y); // Recalculate HeightFactor based on current position
@@ -65,14 +112,11 @@ public class CollisionDetector : MonoBehaviour
         // Calculate HeightFactor using the given y position
         HeightFactor = Mathf.Clamp01((yPosition - penetrationThreshold) / -penetrationThreshold);
     }
-
-    private void Update()
+    private void UpdateCountText()
     {
-        if (count >= 70)
-        {
-            ChangeEyeObjectsColorToRed();
-        }
+        countText.text = $"틀린 횟수: {count}회"; // Update the text to show the current count
     }
+
 
     private void ChangeEyeObjectsColorToRed()
     {
@@ -82,7 +126,10 @@ public class CollisionDetector : MonoBehaviour
             Renderer renderer = eyeObject.GetComponent<Renderer>();
             if (renderer != null)
             {
-                renderer.material.color = Color.red;
+                if (renderer.material.color != Color.red) // Only change color if it is not already red
+                {
+                    renderer.material.color = Color.red;
+                }
             }
         }
     }

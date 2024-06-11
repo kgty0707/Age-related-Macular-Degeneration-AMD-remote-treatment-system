@@ -53,9 +53,9 @@ public class CollsionForce : MonoBehaviour
     
         else if (collisionDetector.CollidingObjectTag == "eye" && collisionDetector.isColliding)
         {
-           // Vector3 dampingForce = -velocity * boxDamping * forceMultiplier; // 모든 축에 대해 댐핑 힘 계산
-            float yDampingForce = -velocity.y * boxDamping * 5f; // Y축 방향 댐핑 힘 계산
-            Vector3 dampingForce = new Vector3(0, yDampingForce, 0);
+           Vector3 dampingForce = -velocity * boxDamping * 7f; // 모든 축에 대해 댐핑 힘 계산
+            //float yDampingForce = -velocity.y * boxDamping * 5f; // Y축 방향 댐핑 힘 계산
+            //Vector3 dampingForce = new Vector3(0, yDampingForce, 0);
 
             // Lerp를 사용하여 부드러운 댐핑 적용
             dampingForce = Vector3.Lerp(lastDampingForce, dampingForce, 0.1f);
