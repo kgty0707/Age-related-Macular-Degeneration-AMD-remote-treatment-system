@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+
+<head>
+  <title>CAD</title>
+  <meta name="description" content="...">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- speed up external res -->
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com/">
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com/">
+  <link rel="preconnect" href="https://fonts.googleapis.com/">
+  <link rel="preconnect" href="https://fonts.gstatic.com/">
+
+  <!-- preloading icon font is helping to speed up a little bit -->
+  <link rel="stylesheet" href="/static/assets/css/style.bundle.css">
+  <link rel="stylesheet" href="/static/css/style.bundle.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    .fixed-height {
+      height: 600px;
+      /* Set the desired fixed height */
+      overflow: hidden;
+    }
+
+    .scrollable-table {
+      max-height: 600px;
+      /* Match the height of the Patient Information card */
+      overflow-y: auto;
+    }
+
+    .table-responsive {
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Core javascripts -->
+  <!-- Your custom javascripts -->
+  <script src="/static/assets/js/widgets.bundle.js"></script>
+  <script src="/static/assets/js/scripts.bundle.js"></script>
+  <script src="/static/js/custom.js"></script>
+
+  <main id="middle" class="flex-fill p-0">
+    <header class="page-title p-4 p-md-5">
+      <!-- page title -->
+      <h1 class="h2 mb-0 fw-bold">Ophthalmic clinic</h1>
+      <p class="lead text-gray-700">Good Morning, heymin.</p>
+    </header>
+    <div class="container">
+      <div class="row mb-5">
+        <div class="col-md-3 col-sm-6">
+          <form method="get" action="#" class="d-flex">
+            <div class="form-floating flex-grow-1 me-2">
+              <input required placeholder="name search..." id="name_search" name="keywords" type="text"
+                class="form-control">
+              <label for="name_search">Name</label>
+            </div>
+            <button type="submit" class="btn btn-primary">
+              <svg width="18px" height="18px" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                class="bi bi-search" viewBox="0 0 16 16">
+                <path
+                  d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z">
+                </path>
+              </svg>
+            </button>
+          </form>
+        </div>
+      </div>
+      <div class="row g-3 mb-3 mt-8">
+        <div class="col-lg-4 mb-5">
+          <div class="card fixed-height">
+            <div class="card-body">
+              <h5 class="card-title mb-5">Patient Information</h5>
+              <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">이름</label>
+                <div class="col-sm-9">
+                  <p class="form-control-plaintext">Patient Name</p>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">주민번호</label>
+                <div class="col-sm-9">
+                  <p class="form-control-plaintext">123456-1234567</p>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">전화번호</label>
+                <div class="col-sm-9">
+                  <p class="form-control-plaintext">010-1234-5678</p>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">성별</label>
+                <div class="col-sm-9">
+                  <p class="form-control-plaintext">Male</p>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">원본 사진</label>
+                <div class="col-sm-9 d-flex align-items-center" id="eye_photo_container1">
+                  <img src="/patient_res_image/hyemin_result.jpg" alt="Eye Photo 1" class="img-fluid" id="eye_photo1">
+                  <p id="no_photo_message1" class="d-none mb-0">No photo available</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-8 mb-5">
+          <div class="card fixed-height">
+            <div class="card-body">
+              <h5 class="card-title">Patient History</h5>
+              <div class="table-responsive scrollable-table">
+                <table class="table table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Result ID</th>
+                      <th>Sclera Coordinates</th>
+                      <th>Cornea Coordinates</th>
+                      <th>Created Date</th>
+                      <th>Original Image</th>
+                      <th>Mask Image</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for record in example %}
+                    <tr>
+                      <td>{{ record.user_name }}</td>
+                      <td>{{ record.result_idx }}</td>
+                      <td>({{ record.sclera_x }}, {{ record.sclera_y }})</td>
+                      <td>({{ record.cornea_x }}, {{ record.cornea_y }})</td>
+                      <td>{{ record.created_dt }}</td>
+                      <td><img src="{{ record.ori_image_path }}" alt="Original Image" class="img-fluid"
+                          style="max-width: 100px;"></td>
+                      <td><img src="{{ record.mask_image_path }}" alt="Mask Image" class="img-fluid"
+                          style="max-width: 100px;"></td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                      <td colspan="7">No patient history available.</td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="section rounded mb-3">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title mb-5">Today Patient Diagnosis</h5>
+            <div id="ajax_response_container"><!-- ajax response container --></div>
+            <form class="js-ajax bs-validate" novalidate action="_ajax/ajax_form_test_submit.html" method="GET"
+              data-ajax-container="#ajax_response_container" data-ajax-update-url="false"
+              data-ajax-show-loading-icon="true"
+              data-error-toast-text="<i class='fi fi-circle-spin fi-spin float-start'></i> Please, complete all required fields!"
+              data-error-toast-delay="3000" data-error-toast-position="top-center" data-error-scroll-up="true"
+              data-ajax-callback-function="">
+              <h5 class="mb-4 mt-6 fw-normal">Diagnosis</h5>
+
+              <!-- Include the diseases template -->
+              {% include 'diseases.html' %}
+
+              <div class="mb-5 row">
+                <label class="col-sm-1 col-form-label">증상</label>
+                <div class="col-sm-11">
+                  <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                </div>
+              </div>
+              <div class="mb-5 row">
+                <label class="col-sm-1 col-form-label">처방</label>
+                <div class="col-sm-11">
+                  <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                </div>
+              </div>
+              <div class="mb-5 row">
+                <label class="col-sm-2 col-form-label">예약 여부</label>
+                <div class="col-sm-10 d-flex align-items-center">
+                  <input class="d-none-cloaked" type="checkbox" name="switch-checkbox" value="1" checked>
+                  <i class="switch-icon"></i>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary">Save</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+
+</html>

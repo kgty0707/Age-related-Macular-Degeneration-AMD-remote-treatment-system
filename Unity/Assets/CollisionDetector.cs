@@ -1,39 +1,178 @@
 using Haply.HardwareAPI.Unity;
 using UnityEngine;
 
+using TMPro; // TextMeshPro ë„¤ì„ìŠ¤í˜ì´ìŠ¤ ì¶”ê°€
+
+
+
 public class CollisionDetector : MonoBehaviour
 {
     public bool isColliding = false;
-    public Vector3 CollisionPoint { get; private set; } // Ãæµ¹ ÁöÁ¡ ÀúÀå
-    public float HeightFactor { get; private set; } // ¿ÜºÎ¿¡¼­ Á¢±Ù °¡´ÉÇÑ heightFactor
-    public float penetrationThreshold = -0.02f; // yÃà ¹æÇâ ÀÓ°èÄ¡
-    public string CollidingObjectTag; // ÇöÀç Ãæµ¹ ÁßÀÎ °´Ã¼ÀÇ ÅÂ±× ÀúÀå
-    public Vector3 EntryDirection { get; private set; }  // Ãæµ¹ ÁøÀÔ ¹æÇâ
+
+    public Vector3 CollisionPoint { get; private set; } // Store collision point
+    public float HeightFactor { get; private set; } // Accessible height factor
+    public float penetrationThreshold = -0.02f; // Threshold in the y-axis direction
+    public string CollidingObjectTag { get; private set; } // Store the tag of the currently colliding object
+    public GameObject CollidingObject { get; private set; } // Store the currently colliding object
+    public Vector3 EntryDirection { get; private set; }  // Store entry direction of the collision
+    private Color originalColor; // Store the original color of the object
+    private Renderer collidingObjectRenderer; // Renderer component of the colliding object
+    public int count = 0; // Counter for collisions with objects other than "sphere"
+
+    public AudioClip sphereSound; // Sphere sound clip
+    public AudioClip eyeSound; // Eye sound clip
+    private AudioSource audioSource; // Audio source component
+    public TextMeshProUGUI countText; // UI Text to display the count
+
+    private bool sphereCollided = false; // Flag to check if sphere has collided
+    private bool eyeCollided = false; // Flag to check if eye has collided
+    public GameObject bloodSprayFX; // Reference to the BloodSprayFX GameObject
+    public GameObject bloodSprayFX2; // Reference to the BloodSprayFX GameObject
+
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>(); // Get the AudioSource component
+        UpdateCountText(); // Update the count text initially
+        bloodSprayFX.SetActive(false); // Ensure BloodSprayFX is inactive at the start
+        bloodSprayFX2.SetActive(false); // Ensure BloodSprayFX is inactive at the start
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("Trigger started with " + other.name);
+        isColliding = true;
+        CollidingObject = other.gameObject;
+        CollisionPoint = other.ClosestPoint(transform.position); // Get the closest point of the trigger collider
+        EntryDirection = (CollisionPoint - transform.position).normalized; // Calculate and store entry direction
+        CollidingObjectTag = other.tag;
+        UpdateHeightFactor(CollisionPoint.y); // Calculate HeightFactor based on collision point
+
+        collidingObjectRenderer = CollidingObject.GetComponent<Renderer>();
+        if (collidingObjectRenderer != null)
+        {
+
+            if (other.CompareTag("sphere"))
+            {
+                if (!sphereCollided)
+                {
+                    if (collidingObjectRenderer.material.color != Color.green)
+                    {
+                        collidingObjectRenderer.material.color = Color.green;
+                    }
+                    if (!audioSource.isPlaying || audioSource.clip != sphereSound)
+                    {
+                        audioSource.clip = sphereSound;
+                        audioSource.Play();
+                    }
+                    sphereCollided = true; // Set flag
+                }
+            }
+
+            else if (other.CompareTag("eye"))
+            {
+                if (!eyeCollided)
+                {
+                    count++;
+                    UpdateCountText();
+                    if (!audioSource.isPlaying || audioSource.clip != eyeSound)
+                    {
+                        audioSource.clip = eyeSound;
+                        audioSource.Play();
+                    }
+                }
+                if (count >= 20)
+                {
+                    ChangeEyeObjectsColorToRed();
+                    bloodSprayFX.SetActive(true); // Activate BloodSprayFX on collision with eye
+                    bloodSprayFX2.SetActive(true); // Activate BloodSprayFX on collision with eye
+                }
+                eyeCollided = true;
+            }
+                else
+            {
+            }
+        }
+
+    public Vector3 CollisionPoint { get; private set; } // ì¶©ëŒ ì§€ì  ì €ì¥
+    public float HeightFactor { get; private set; } // ì™¸ë¶€ì—ì„œ ì ‘ê·¼ ê°€ëŠ¥í•œ heightFactor
+    public float penetrationThreshold = -0.02f; // yì¶• ë°©í–¥ ì„ê³„ì¹˜
+    public string CollidingObjectTag; // í˜„ì¬ ì¶©ëŒ ì¤‘ì¸ ê°ì²´ì˜ íƒœê·¸ ì €ì¥
+    public Vector3 EntryDirection { get; private set; }  // ì¶©ëŒ ì§„ì… ë°©í–¥
 
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("Collision started with " + other.name);
         isColliding = true;
-        CollisionPoint = other.ClosestPointOnBounds(transform.position); // Ãæµ¹ ÁöÁ¡ ¾÷µ¥ÀÌÆ®
-        EntryDirection = (CollisionPoint - transform.position).normalized;  // ÁøÀÔ ¹æÇâ °è»ê ¹× ÀúÀå
+        CollisionPoint = other.ClosestPointOnBounds(transform.position); // ì¶©ëŒ ì§€ì  ì—…ë°ì´íŠ¸
+        EntryDirection = (CollisionPoint - transform.position).normalized;  // ì§„ì… ë°©í–¥ ê³„ì‚° ë° ì €ì¥
         CollidingObjectTag = other.tag;
-        UpdateHeightFactor(CollisionPoint.y); // Ãæµ¹ ÁöÁ¡À» ±âÁØÀ¸·Î HeightFactor °è»ê
+        UpdateHeightFactor(CollisionPoint.y); // ì¶©ëŒ ì§€ì ì„ ê¸°ì¤€ìœ¼ë¡œ HeightFactor ê³„ì‚°
+
     }
 
     private void OnTriggerExit(Collider other)
     {
+
+        Debug.Log("Trigger ended with " + other.name);
+        if (other.tag == CollidingObjectTag)
+        {
+            isColliding = false;
+            CollidingObject = null; // Clear the colliding object on exit
+            CollidingObjectTag = null; // Clear the tag on exit
+
+            if (other.CompareTag("sphere"))
+            {
+                sphereCollided = false;
+                collidingObjectRenderer.material.color = Color.white; // Revert to the original material on trigger exit
+                collidingObjectRenderer = null; // Clear the renderer reference
+            }
+            else if (other.CompareTag("eye"))
+            {
+                eyeCollided = false;
+            }
+        }
+        UpdateHeightFactor(transform.position.y); // Recalculate HeightFactor based on current position
+
         Debug.Log("Collision ended with " + other.name);
         if (other.tag == CollidingObjectTag)
         {
             isColliding = false;
-            CollidingObjectTag = null; // Ãæµ¹ Á¾·á ½Ã ÅÂ±× ÃÊ±âÈ­
+            CollidingObjectTag = null; // ì¶©ëŒ ì¢…ë£Œ ì‹œ íƒœê·¸ ì´ˆê¸°í™”
         }
-        UpdateHeightFactor(transform.position.y); // Ãæµ¹ Á¾·á ½Ã ÇöÀç À§Ä¡¸¦ ±âÁØÀ¸·Î HeightFactor °è»ê
+        UpdateHeightFactor(transform.position.y); // ì¶©ëŒ ì¢…ë£Œ ì‹œ í˜„ì¬ ìœ„ì¹˜ë¥¼ ê¸°ì¤€ìœ¼ë¡œ HeightFactor ê³„ì‚°
+
     }
 
     private void UpdateHeightFactor(float yPosition)
     {
-        // ÁÖ¾îÁø y À§Ä¡¸¦ »ç¿ëÇÏ¿© HeightFactor °è»ê
+
+        // Calculate HeightFactor using the given y position
         HeightFactor = Mathf.Clamp01((yPosition - penetrationThreshold) / -penetrationThreshold);
     }
+    private void UpdateCountText()
+    {
+        countText.text = $"í‹€ë¦° íšŸìˆ˜: {count}íšŒ"; // Update the text to show the current count
+    }
+
+
+    private void ChangeEyeObjectsColorToRed()
+    {
+        GameObject[] eyeObjects = GameObject.FindGameObjectsWithTag("eye");
+        foreach (GameObject eyeObject in eyeObjects)
+        {
+            Renderer renderer = eyeObject.GetComponent<Renderer>();
+            if (renderer != null)
+            {
+                if (renderer.material.color != Color.red) // Only change color if it is not already red
+                {
+                    renderer.material.color = Color.red;
+                }
+            }
+        }
+    }
+
+        // ì£¼ì–´ì§„ y ìœ„ì¹˜ë¥¼ ì‚¬ìš©í•˜ì—¬ HeightFactor ê³„ì‚°
+        HeightFactor = Mathf.Clamp01((yPosition - penetrationThreshold) / -penetrationThreshold);
+    }
+
 }

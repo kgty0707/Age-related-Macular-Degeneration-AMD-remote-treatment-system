@@ -1,5 +1,6 @@
 from ultralytics import YOLO
 from PIL import Image
+import torch
 
 # 모델 처리
 '''
@@ -23,8 +24,6 @@ def get_segmentation_result(file_fath, user_name):
 
     result[0].save(filename=filename)
 
-    print(width, height, filename, user_name)
-
     return width, height, filename
 
 
@@ -42,3 +41,7 @@ def culculate_lenght(boxes, w, h):
 
             return width, height
         
+def torch_ready():
+    return print(torch.cuda.is_available())
+        
+torch_ready()

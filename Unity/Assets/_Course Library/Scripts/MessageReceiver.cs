@@ -6,7 +6,7 @@ public class MessageReceiver : MonoBehaviour
 {
     void Start()
     {
-        StartCoroutine(GetMessageCoroutine("http://localhost:8000/get-message/"));
+        StartCoroutine(GetMessageCoroutine("http://166.104.232.81:9876/get-message/"));
     }
 
     IEnumerator GetMessageCoroutine(string uri)
