@@ -48,14 +48,6 @@ def get_message():
     """
     return {"message": "Hello from FastAPI!"}
 
-# @app.post("/create-dummy-data/")
-# def create_dummy_data(request_data: schemas.ResultCreate, db: Session = Depends(get_db)):
-#     """
-#     unity에서 더미 데이터 만든 후 db insert 함수
-#     """
-#     crud.insert_data(db=db, result_create=request_data)
-#     return {"message": "Item received", "name": request_data.user_name, "number": request_data.created_dt}
-
 @app.get("/results/", response_model=List[schemas.ResultCreate])
 def read_results(db: Session = Depends(get_db)):
     """
