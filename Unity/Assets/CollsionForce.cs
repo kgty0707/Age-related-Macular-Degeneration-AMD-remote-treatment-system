@@ -9,11 +9,11 @@ public class CollsionForce : MonoBehaviour
     private CollisionDetector collisionDetector;
     private HapticThread hapticThread;
 
-    private Vector3 lastPosition; // ÀÌÀü ÇÁ·¹ÀÓ¿¡¼­ÀÇ À§Ä¡
-    private float forceMultiplier = 3f; // Èû ÁõÆø °è¼ö (ÇÊ¿ä¿¡ µû¶ó Á¶Àı °¡´É)
-    private float safetyForceThreshold = 20f; // ¾ÈÀüÀ» À§ÇÑ ÈûÀÇ ÃÖ´ë°ª
-    private Vector3 lastDampingForce = Vector3.zero; // ÀÌÀü ´ïÇÎ Èû
-    private Vector3 lastForce = Vector3.zero; // ÀÌÀü ÇÁ·¹ÀÓ¿¡¼­ÀÇ Èû
+    private Vector3 lastPosition; // ì´ì „ í”„ë ˆì„ì—ì„œì˜ ìœ„ì¹˜
+    private float forceMultiplier = 3f; // í˜ ì¦í­ ê³„ìˆ˜ (í•„ìš”ì— ë”°ë¼ ì¡°ì ˆ ê°€ëŠ¥)
+    private float safetyForceThreshold = 20f; // ì•ˆì „ì„ ìœ„í•œ í˜ì˜ ìµœëŒ€ê°’
+    private Vector3 lastDampingForce = Vector3.zero; // ì´ì „ ëŒí•‘ í˜
+    private Vector3 lastForce = Vector3.zero; // ì´ì „ í”„ë ˆì„ì—ì„œì˜ í˜
 
     private void Awake()
     {
@@ -24,64 +24,52 @@ public class CollsionForce : MonoBehaviour
 
     private void Update()
     {
-        Vector3 positionChange = transform.position - lastPosition;
-        Vector3 movementDirection = positionChange.normalized; // ¹°Ã¼ÀÇ ¿òÁ÷ÀÓ ¹æÇâ Á¤±ÔÈ­
-        Vector3 velocity = positionChange / Time.deltaTime; // ÇöÀç ¼Óµµ °è»ê
+        Vector3 positionChange = transform.position - lastPosition; //ìœ„ì¹˜ ë³€í™” ê³„ì‚° 
+        Vector3 movementDirection = positionChange.normalized; // ë¬¼ì²´ì˜ ì›€ì§ì„ ë°©í–¥ ì •ê·œí™”
+        Vector3 velocity = positionChange / Time.deltaTime; // í˜„ì¬ ì†ë„ ê³„ì‚°
 
         if (collisionDetector.CollidingObjectTag == "sphere" && collisionDetector.isColliding)
         {
-            float elasticModulus = Mathf.Lerp(0.16f, 0.30f, collisionDetector.HeightFactor) * 1e6f; // Åº¼º °è¼ö¸¦ MPa¿¡¼­ Pa·Î º¯È¯
-            float area = Mathf.PI * Mathf.Pow(0.012f, 2); // ¾È±¸ÀÇ ÃßÁ¤ ¸éÀû (¹İÁö¸§ 1.2cmÀÇ ¿ø)
-            float displacement = positionChange.magnitude; // º¯À§ÀÇ Å©±â
-            float springForce = elasticModulus * area * displacement; // ÈÅÀÇ ¹ıÄ¢À» »ç¿ëÇÏ¿© °è»êµÈ Èû
-            Vector3 reactiveForce = springForce * -movementDirection * forceMultiplier; // ¹İÀÛ¿ë ÈûÀ» ¹İ´ë ¹æÇâÀ¸·Î Àû¿ë
-            /*Vector3 smoothForce = Vector3.Lerp(lastForce, reactiveForce, 0.5f);// ºÎµå·´°Ô ÈûÀ» Àû¿ëÇÏ±â À§ÇØ Lerp¸¦ »ç¿ë
-            lastForce = smoothForce; // ÇöÀç ÇÁ·¹ÀÓÀÇ ÈûÀ» ÀúÀå
-            */
+            float elasticModulus = Mathf.Lerp(0.16f, 0.30f, collisionDetector.HeightFactor) * 1e6f; // íƒ„ì„± ê³„ìˆ˜ë¥¼ MPaì—ì„œ Paë¡œ ë³€í™˜
+            float area = Mathf.PI * Mathf.Pow(0.012f, 2); // ì•ˆêµ¬ì˜ ì¶”ì • ë©´ì  (ë°˜ì§€ë¦„ 1.2cmì˜ ì›)
+            float displacement = positionChange.magnitude; // ë³€ìœ„ì˜ í¬ê¸°
+            float springForce = elasticModulus * area * displacement; // í›…ì˜ ë²•ì¹™ì„ ì‚¬ìš©í•˜ì—¬ ê³„ì‚°ëœ í˜
+            Vector3 reactiveForce = springForce * -movementDirection * forceMultiplier; // ë°˜ì‘ìš© í˜ì„ ë°˜ëŒ€ ë°©í–¥ìœ¼ë¡œ ì ìš©
             Debug.Log($"Force (Sphere): {reactiveForce}");
-            UpdateForceCalculation(reactiveForce);
-            /*
-            // XyÃà ¹æÇâÀ¸·Î ¿òÁ÷ÀÌÁö ¸øÇÏ°Ô ÇÏ´Â Èû Ãß°¡
-            Vector3 xyRestrictionForce = -new Vector3(velocity.x, velocity.y, 0) * 1f;
-            // XyÃà Á¦ÇÑ Èû°ú ¹İÀÛ¿ë ÈûÀ» ÇÕ»ê
-            Vector3 totalForce = reactiveForce + xyRestrictionForce;
-          
-            Debug.Log(totalForce);*/
+            UpdateForceCalculation(reactiveForce); // í˜ ê³„ì‚° ì—…ë°ì´íŠ¸
         }
     
         else if (collisionDetector.CollidingObjectTag == "eye" && collisionDetector.isColliding)
         {
-           Vector3 dampingForce = -velocity * 7f; // ¸ğµç Ãà¿¡ ´ëÇØ ´ïÇÎ Èû °è»ê
-            //float yDampingForce = -velocity.y * boxDamping * 5f; // YÃà ¹æÇâ ´ïÇÎ Èû °è»ê
-            //Vector3 dampingForce = new Vector3(0, yDampingForce, 0);
+           Vector3 dampingForce = -velocity * 7f; // ëª¨ë“  ì¶•ì— ëŒ€í•´ ëŒí•‘ í˜ ê³„ì‚°
 
-            // Lerp¸¦ »ç¿ëÇÏ¿© ºÎµå·¯¿î ´ïÇÎ Àû¿ë
+            // Lerpë¥¼ ì‚¬ìš©í•˜ì—¬ ë¶€ë“œëŸ¬ìš´ ëŒí•‘ ì ìš©
             dampingForce = Vector3.Lerp(lastDampingForce, dampingForce, 0.1f);
             lastDampingForce = dampingForce;
 
             Debug.Log($"Damping Force (Eye): {dampingForce}");
-            UpdateForceCalculation(dampingForce);
+            UpdateForceCalculation(dampingForce); // í˜ ê³„ì‚° ì—…ë°ì´íŠ¸
         }
         else
         {
             UpdateForceCalculation(new Vector3(1e-6f, 1e-6f, 1e-6f));
-            lastDampingForce = Vector3.zero; // Ãæµ¹ÀÌ ¾øÀ» ¶§´Â ´ïÇÎ Èû ÃÊ±âÈ­
+            lastDampingForce = Vector3.zero; // ì¶©ëŒì´ ì—†ì„ ë•ŒëŠ” ëŒí•‘ í˜ ì´ˆê¸°í™”
         }
-        lastPosition = transform.position; // Update the last position for the next frame
+        lastPosition = transform.position; // ë‹¤ìŒ í”„ë ˆì„ì„ ìœ„í•´ ì´ì „ ìœ„ì¹˜ ì—…ë°ì´íŠ¸
     }
 
     private void UpdateForceCalculation(Vector3 forceDirection)
-    {
+    { // ì•ˆì „ì„ ìœ„í•´ í˜ì˜ ìµœëŒ€ê°’ ì´ˆê³¼ ì‹œ í˜ì„ 0ìœ¼ë¡œ ì„¤ì •
         if (forceDirection.magnitude > safetyForceThreshold)
         {
             forceDirection = Vector3.zero;
         }
 
-        if (hapticThread.isInitialized && collisionDetector.isColliding)
-        {
+        if (hapticThread.isInitialized && collisionDetector.isColliding) // HapticThreadê°€ ì´ˆê¸°í™”ë˜ê³  ì¶©ëŒì´ ë°œìƒí•œ ê²½ìš°
+        { 
             hapticThread.Run((in Vector3 position) =>
             {
-                return forceDirection;
+                return forceDirection; // ê³„ì‚°ëœ í˜ ë°˜í™˜
             });
         }
     }
