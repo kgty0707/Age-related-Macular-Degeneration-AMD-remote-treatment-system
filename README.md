@@ -27,7 +27,7 @@
 2. If you follow the screen, you will arrive at the operating room.
 ![image](https://github.com/kgty0707/Age-related-Macular-Degeneration-AMD-remote-treatment-system/assets/90316001/3c5653d3-6ff6-407f-a6d6-16afcc583a71)
 3. Just inject the injection toward the target point in the eye.
-![image](https://github.com/kgty0707/Age-related-Macular-Degeneration-AMD-remote-treatment-system/assets/90316001/4f145e1e-f1fd-41d2-b845-e9398a26a492)
+![image](https://github.com/kgty0707/Age-related-Macular-Degeneration-AMD-remote-treatment-system/assets/90316001/1c6561d7-a40b-48b9-a3b2-f965b1831a15)
 
 ## Contributing&Contact
 
