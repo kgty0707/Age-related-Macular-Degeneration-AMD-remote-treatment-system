@@ -2,6 +2,10 @@ using System.Collections;
 using UnityEngine;
 
 public class ButtonClickHandler : MonoBehaviour
+/*
+코루틴을 설정하여 버튼 클릭 시 오디오 클립을 재생하고, 
+오디오 클립이 재생된 후 UI를 비활성화하는 기능
+*/
 {
     public AudioSource audioSource;
     public AudioClip buttonClip;

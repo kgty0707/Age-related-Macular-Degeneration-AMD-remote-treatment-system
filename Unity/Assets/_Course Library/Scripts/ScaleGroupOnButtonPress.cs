@@ -3,6 +3,10 @@ using UnityEngine.UI; // UI 네임스페이스 추가
 using System.Collections.Generic; // List를 사용하기 위한 네임스페이스 추가
 
 public class ScaleGroupOnButtonPress : MonoBehaviour
+/*
+버튼 클릭 시 오브젝트들의 크기와 위치를 변경하는 기능.
+*/
+
 {
     public float scaleIncrement = 0.1f; // 크기를 증가시킬 값
     public float maxScale = 5f; // 최대 크기 제한
@@ -28,7 +32,7 @@ public class ScaleGroupOnButtonPress : MonoBehaviour
         zoomOutButton.onClick.AddListener(() => Zoom(false));
     }
 
-    // Zoom 메서드
+    // Zoom 메서드: 크기와 위치를 조절
     void Zoom(bool isZoomIn)
     {
         float increment = isZoomIn ? scaleIncrement : -scaleIncrement;
@@ -45,6 +49,7 @@ public class ScaleGroupOnButtonPress : MonoBehaviour
     // 크기를 변경할 수 있는지 확인하는 메서드
     bool CanChangeSize(bool isIncreasing)
     {
+        // 본 오브젝트의 자식들에 대한 크기 변경 가능 여부 확인
         foreach (Transform child in transform)
         {
             if (isIncreasing && (child.localScale.x >= maxScale || child.localScale.y >= maxScale || child.localScale.z >= maxScale) ||
