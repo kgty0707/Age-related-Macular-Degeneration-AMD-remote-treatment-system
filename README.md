@@ -4,7 +4,7 @@
 
 ### Project Overview
 ![image](https://github.com/kgty0707/Age-related-Macular-Degeneration-AMD-remote-treatment-system/assets/90316001/c2a7c74e-deeb-4fdf-ae21-1d5b7237e6a2)
-> CAD(Computer-Aided Diagnosis) modeling and simulation is a project that ran from March to May 2024 on the topic of helping doctors increase the accuracy and precision of diagnosis in medical settings.
+> This project was conducted in a CAD (Computer-Aided Diagnosis) modeling and simulation class with the theme of "helping doctors increase the accuracy and precision of diagnosis in medical environments." It was conducted from March to May 2024.
 > 
 [![C#](https://img.shields.io/badge/C%23-512BD4?style=for-the-badge&logo=csharp&logoColor=white)](https://docs.microsoft.com/en-us/dotnet/csharp/)
 [![Unity](https://img.shields.io/badge/Unity-000000?style=for-the-badge&logo=unity&logoColor=white)](https://unity.com/)
