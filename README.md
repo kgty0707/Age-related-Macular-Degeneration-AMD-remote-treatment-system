@@ -2,29 +2,37 @@
 
 # Age-related-Macular-Degeneration-AMD-remote-treatment-system
 
-## Project Overview
-
+### Project Overview
+![image](https://github.com/kgty0707/Age-related-Macular-Degeneration-AMD-remote-treatment-system/assets/90316001/c2a7c74e-deeb-4fdf-ae21-1d5b7237e6a2)
 > This is a project in the modeling and simulation subject for CAD, and will be conducted from March to May 2024.
->
 > 
 [![C#](https://img.shields.io/badge/C%23-512BD4?style=for-the-badge&logo=csharp&logoColor=white)](https://docs.microsoft.com/en-us/dotnet/csharp/)
 [![Unity](https://img.shields.io/badge/Unity-000000?style=for-the-badge&logo=unity&logoColor=white)](https://unity.com/)
 [![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)](https://www.python.org/)
+
 ## Usage
 - Eye system Low-poly 3D model
+- HQ Operation Theater
 
 ### Assets List
 -- Environment --
-
-![image](https://github.com/kgty0707/Age-related-Macular-Degeneration-AMD-remote-treatment-system/assets/90316001/e0378585-26a8-46a1-a778-56eb8ae767e4)
+![image](https://github.com/kgty0707/Age-related-Macular-Degeneration-AMD-remote-treatment-system/assets/90316001/1e331360-34e6-42db-a70b-979b9f6715ca)
 
 - Hospital | Blue Dot Studios
 - Surgical Instruments
+  
+## User Manual
+1. When you start it, you can see the screen. 
+![image](https://github.com/kgty0707/Age-related-Macular-Degeneration-AMD-remote-treatment-system/assets/90316001/a574e51e-e57a-4faa-a3e6-c6b57134330f)
+2. If you follow the screen, you will arrive at the operating room.
+![image](https://github.com/kgty0707/Age-related-Macular-Degeneration-AMD-remote-treatment-system/assets/90316001/3c5653d3-6ff6-407f-a6d6-16afcc583a71)
+3. Just inject the injection toward the target point in the eye.
+![image](https://github.com/kgty0707/Age-related-Macular-Degeneration-AMD-remote-treatment-system/assets/90316001/4f145e1e-f1fd-41d2-b845-e9398a26a492)
 
 ## Contributing&Contact
 
 - hyemin
-  - 이메일: [goaehfkwl@hanyang.ac.kr](mailto:goaehfkwl@hanyang.ac.kr)
+  - 이메일: [phm0707@hanyang.ac.kr](mailto:phm0707@hanyang.ac.kr)
 
 - minju
   - 이메일: [smj0324@hanyang.ac.kr](mailto:smj0324@hanyang.ac.kr)
